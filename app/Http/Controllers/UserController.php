@@ -2,26 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\CategoryService;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class UserController extends Controller
 {
-    protected $categoryService;
-
-    public function __construct(CategoryService $categoryService)
-    {
-        $this->categoryService = $categoryService;
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return apiSuccess($this->categoryService->getAll());
+    public function index() {
+        return apiSuccess(new UserResource(auth()->user()));
     }
 
     /**
@@ -32,12 +24,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string|max:255'
-        ]);
-
-        return apiSuccess($this->categoryService->create($request->all()), 'Category created successfully!');
+        //
     }
 
     /**
@@ -60,12 +47,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'title' => 'nullable|string|max:255',
-            'description' => 'nullable|string|max:255',
-        ]);
-
-        return apiSuccess($this->categoryService->update($id, $request->all()), 'Category updated successfully!');
+        //
     }
 
     /**
@@ -76,6 +58,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        return apiSuccess($this->categoryService->delete($id), 'Category deleted successfully!');
+        //
     }
 }

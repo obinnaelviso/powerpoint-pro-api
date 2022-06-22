@@ -24,7 +24,9 @@ return new class extends Migration
             $table->unsignedSmallInteger('duration');
             $table->string('phone');
             $table->string('email');
-            $table->string('location');
+            $table->string('location')->nullable();
+            $table->string('need')->nullable();
+            $table->unsignedInteger('amount');
             $table->foreignId('status_id');
             $table->timestamps();
         });

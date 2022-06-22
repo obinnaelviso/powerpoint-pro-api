@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\BankAccountService;
 use Illuminate\Http\Request;
 
 class BankAccountController extends Controller
 {
+    protected $bankAccountService;
+
+    public function __construct(BankAccountService $bankAccountService)
+    {
+        $this->bankAccountService = $bankAccountService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,7 @@ class BankAccountController extends Controller
      */
     public function index()
     {
-        //
+        return apiSuccess($this->bankAccountService->getAll());
     }
 
     /**
@@ -24,7 +31,13 @@ class BankAccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'bank_name' => 'required|string|max:255',
+            'account_name' => 'required|string|max:255',
+            'account_number' => 'required|string|max:255',
+        ]);
+
+        return apiSuccess($this->bankAccountService->create($request->all()), 'Bank account created successfully!');
     }
 
     /**
@@ -47,7 +60,13 @@ class BankAccountController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'bank_name' => 'nullable|string|max:255',
+            'account_name' => 'nullable|string|max:255',
+            'account_number' => 'nullable|string|max:255',
+        ]);
+
+        return apiSuccess($this->bankAccountService->update($id, $request->all()), 'Bank account updated successfully!');
     }
 
     /**
@@ -58,6 +77,6 @@ class BankAccountController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return apiSuccess($this->bankAccountService->delete($id), 'Bank account deleted successfully!');
     }
 }

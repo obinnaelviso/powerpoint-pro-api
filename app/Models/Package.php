@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Package extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function getAmountStringAttribute() {
+        return config('app.currency').$this->amount;
+    }
+
+    public function status() {
+        return $this->belongsTo(Status::class);
+    }
 }

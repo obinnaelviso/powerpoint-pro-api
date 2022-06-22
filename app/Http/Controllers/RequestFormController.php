@@ -2,10 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\PackageService;
+use App\Services\RequestFormService;
 use Illuminate\Http\Request;
 
 class RequestFormController extends Controller
 {
+    protected $requestFormService;
+
+    public function __construct(RequestFormService $requestFormService, PackageService $packageService)
+    {
+        $this->requestFormService = $requestFormService;
+        $this->packageService = $packageService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +22,11 @@ class RequestFormController extends Controller
      */
     public function index()
     {
-        //
+        return apiSuccess($this->requestFormService->getAllUser());
+    }
+
+    public function all() {
+        return apiSuccess($this->requestFormService->getAllAdmin());
     }
 
     /**
@@ -24,7 +37,21 @@ class RequestFormController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'sub_category' => 'nullable|string|max:255',
+            'topic' => 'required|string|max:255',
+            'slides' => 'required|numeric',
+            'duration' => 'required|numeric',
+            'phone' => 'required|numeric',
+            'email' => 'required|string|email|max:255',
+            'location' => 'nullable|string|max:255',
+            'need' => 'nullable|string|max:255'
+        ]);
+
+        $requestForm = $this->requestFormService->create($request->all());
+        return apiSuccess($requestForm, "Request form submitted successfully. You need to make payment before we can start processing your request.");
     }
 
     /**
@@ -35,7 +62,8 @@ class RequestFormController extends Controller
      */
     public function show($id)
     {
-        //
+        $requestForm = $this->requestFormService->get($id);
+        return apiSuccess($requestForm);
     }
 
     /**
@@ -47,7 +75,44 @@ class RequestFormController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'nullable|string|max:255',
+            'category' => 'nullable|string|max:255',
+            'sub_category' => 'nullable|string|max:255',
+            'topic' => 'nullable|string|max:255',
+            'slides' => 'nullable|numeric',
+            'duration' => 'nullable|numeric',
+            'phone' => 'nullable|numeric',
+            'email' => 'nullable|string|email|max:255',
+            'location' => 'nullable|string|max:255',
+            'need' => 'nullable|string|max:255',
+        ]);
+
+        $requestForm = $this->requestFormService->update($id, $request->all());
+        return apiSuccess($requestForm, "Request form submitted successfully. You need to make payment before we can start processing your request.");
+    }
+
+    public function uploadPaymentReceipt(Request $request, $id) {
+        $request->validate([
+            'file' => 'required|file|mimes:jpeg,png,pdf|max:2048'
+        ]);
+        $requestForm = $this->requestFormService->uploadPaymentReceipt($id, $request->file('file'));
+        return apiSuccess($requestForm, "Payment receipt uploaded successfully! Please wait while your request is been processed. You will get a notification when your request is approved.");
+    }
+
+    public function approve($id) {
+        $requestForm = $this->requestFormService->approve($id);
+        return apiSuccess($requestForm, "Request form approved successfully!");
+    }
+
+    public function cancel($id) {
+        $requestForm = $this->requestFormService->cancel($id);
+        return apiSuccess($requestForm, "Request form cancelled successfully!");
+    }
+
+    public function complete($id) {
+        $requestForm = $this->requestFormService->complete($id);
+        return apiSuccess($requestForm, "Request form completed successfully!");
     }
 
     /**
@@ -58,6 +123,6 @@ class RequestFormController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return apiSuccess($this->categoryService->delete($id), 'Category deleted successfully!');
     }
 }

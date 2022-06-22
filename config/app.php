@@ -16,6 +16,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'currency' => env('APP_CURRENCY', 'NGN'),
 
     /*
     |--------------------------------------------------------------------------
@@ -211,6 +212,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'SettingEnum' => App\Enums\SettingEnum::class,
     ])->toArray(),
 
 ];
