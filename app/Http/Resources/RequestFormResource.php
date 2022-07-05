@@ -15,6 +15,7 @@ class RequestFormResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'category' => $this->category,
             'sub_category' => $this->sub_category,
