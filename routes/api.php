@@ -44,6 +44,8 @@ Route::group(['prefix' => 'otp', 'as' => 'otp.'], function() {
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/me', UserController::class . '@index');
 
+    Route::post('/logout', LoginController::class . '@logout');
+
     Route::get('packages/search', PackageController::class . '@search');
     Route::apiResources([
         'packages' => PackageController::class,
