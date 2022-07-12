@@ -71,4 +71,8 @@ class RequestFormService {
     public function complete($id) {
         return $this->update($id, ['status_id' => status_completed_id()]);
     }
+
+    public function pending($id) {
+        return $this->update($id, ['status_id' => status_pending_id()]);
+    }
 }

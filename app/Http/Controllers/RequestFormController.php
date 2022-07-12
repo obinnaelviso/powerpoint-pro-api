@@ -115,6 +115,11 @@ class RequestFormController extends Controller
         return apiSuccess($requestForm, "Request form completed successfully!");
     }
 
+    public function pending($id) {
+        $requestForm = $this->requestFormService->pending($id);
+        return apiSuccess($requestForm, "Request form status reverted successfully!");
+    }
+
     /**
      * Remove the specified resource from storage.
      *

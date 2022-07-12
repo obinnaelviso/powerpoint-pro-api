@@ -71,5 +71,6 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::put('/{id}/approve', RequestFormController::class . '@approve');
         Route::put('/{id}/cancel', RequestFormController::class . '@cancel');
         Route::put('/{id}/complete', RequestFormController::class . '@complete');
+        Route::put('/{id}/pending', RequestFormController::class . '@pending');
     });
 });
