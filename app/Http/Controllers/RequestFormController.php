@@ -123,6 +123,6 @@ class RequestFormController extends Controller
      */
     public function destroy($id)
     {
-        return apiSuccess($this->categoryService->delete($id), 'Category deleted successfully!');
+        return apiSuccess($this->requestFormService->delete($id), 'Request form deleted successfully!');
     }
 }
