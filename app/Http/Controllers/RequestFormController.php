@@ -94,7 +94,7 @@ class RequestFormController extends Controller
 
     public function uploadPaymentReceipt(Request $request, $id) {
         $request->validate([
-            'file' => 'required|file|mimes:jpg,webp,jpeg,png,pdf|max:2048'
+            'file' => 'required|max:2048'
         ]);
         $requestForm = $this->requestFormService->uploadPaymentReceipt($id, $request->file('file'));
         return apiSuccess($requestForm, "Payment receipt uploaded successfully! Please wait while your request is been processed. You will get a notification when your request is approved.");
