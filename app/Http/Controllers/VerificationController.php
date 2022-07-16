@@ -30,7 +30,7 @@ class VerificationController extends Controller
 
     public function email(Request $request) {
         $request->validate([
-            'email' => 'required|string|email',
+            'email' => 'required|string|email|exists:users,email',
             'otp' => 'required|string'
         ]);
 
