@@ -20,13 +20,13 @@ class OtpService {
     public function sendEmailVerificationOTP(string $email, int $expireInMins = 15) : bool {
         // Send email here
         $otp = $this->retrieveOTP($email, OtpEnum::EMAIL_VERIFICATION, $expireInMins);
-        try {
-            Mail::to($email)->send(new OtpEmail($otp, $expireInMins));
-            return true;
-        } catch (\Throwable $e) {
-            // report error
-            return false;
-        }
+        Mail::to($email)->send(new OtpEmail($otp, $expireInMins));
+        // try {
+        //     return true;
+        // } catch (\Throwable $e) {
+        //     // report error
+        //     return false;
+        // }
     }
 
     // public function sendPhoneVerificationOTP(string $phone, int $expireInMins = 15) {
