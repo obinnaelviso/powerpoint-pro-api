@@ -15,7 +15,7 @@ class OtpController extends Controller
 
     public function email(Request $request) {
         $request->validate([
-            'email' => 'required|string|email'
+            'email' => 'required|string|email|exists:user,email'
         ]);
         $isSent = $this->otpService->sendEmailVerificationOTP($request->email, config('otp.expires_in_mins'));
 
