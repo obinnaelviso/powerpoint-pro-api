@@ -34,7 +34,7 @@ class VerificationController extends Controller
             'otp' => 'required|string'
         ]);
 
-        $isVerified = $this->verificationService->verifyEmail($request->phone, $request->otp);
+        $isVerified = $this->verificationService->verifyEmail($request->email, $request->otp);
 
         if ($isVerified) {
             return apiSuccess(null, "Email verified successfully!");
