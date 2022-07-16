@@ -15,12 +15,22 @@ class RequestFormService {
         $this->packageService = $packageService;
     }
 
-    public function getAllAdmin() {
-        return RequestFormResource::collection($this->requestFormRepo->getAll());
+    public function getAllAdmin($query = "") {
+        if ($query == 'active') {
+            $requestForms = $this->requestFormRepo->getAllActive();
+        } else {
+            $requestForms = $this->requestFormRepo->getAll();
+        }
+        return RequestFormResource::collection($requestForms);
     }
 
-    public function getAllUser() {
-        return RequestFormResource::collection($this->requestFormRepo->getAll(auth()->user()->id));
+    public function getAllUser($query = "") {
+        if ($query == 'active') {
+            $requestForms = $this->requestFormRepo->getAllActive(auth()->user()->id);
+        } else {
+            $requestForms = $this->requestFormRepo->getAll(auth()->user()->id);
+        }
+        return RequestFormResource::collection($requestForms);
     }
 
     public function create(array $data) {
@@ -28,6 +38,7 @@ class RequestFormService {
         return new RequestFormResource($this->requestFormRepo->create($data + [
             'status_id' => status_pending_id(),
             'user_id' => auth()->user()->id,
+            'request_no' => $this->getRequestNo(),
             'amount' => $package->amount,
         ]));
     }
@@ -74,5 +85,13 @@ class RequestFormService {
 
     public function pending($id) {
         return $this->update($id, ['status_id' => status_pending_id()]);
+    }
+
+    public function getRequestNo() {
+        $requestNo = generateRequestNo();
+        if ($this->requestFormRepo->getByRequestNo($requestNo)) {
+            return $this->getRequestNo();
+        }
+        return $requestNo;
     }
 }

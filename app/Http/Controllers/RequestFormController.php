@@ -20,13 +20,13 @@ class RequestFormController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return apiSuccess($this->requestFormService->getAllUser());
+        return apiSuccess($this->requestFormService->getAllUser($request->q));
     }
 
-    public function all() {
-        return apiSuccess($this->requestFormService->getAllAdmin());
+    public function all(Request $request) {
+        return apiSuccess($this->requestFormService->getAllAdmin($request->q));
     }
 
     /**

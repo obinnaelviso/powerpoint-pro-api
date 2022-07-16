@@ -20,6 +20,29 @@ class RequestFormRepository {
                 return $this->getAllUser($arguments[0]);
             }
         }
+        if ($name == 'getAllActive') {
+            if (count($arguments) == 0) {
+                return $this->getAllActiveAdmin();
+            }
+            else if (count($arguments) == 1) {
+                return $this->getAllActiveUser($arguments[0]);
+            }
+        }
+    }
+
+    public function getAllActiveUser($userId) {
+        return $this->requestForm->where('user_id', $userId)
+            ->where('status_id', '<>', status_completed_id())
+            ->where('status_id', '<>', status_cancelled_id())
+            ->latest()
+            ->get();
+    }
+
+    public function getAllActiveAdmin() {
+        return $this->requestForm
+        ->where('status_id', '<>', status_completed_id())
+        ->where('status_id', '<>', status_cancelled_id())
+        ->get();
     }
 
     public function getAllUser($id) {
@@ -32,6 +55,10 @@ class RequestFormRepository {
 
     public function getById($id) {
         return $this->requestForm->find($id);
+    }
+
+    public function getByRequestNo($requestNo) {
+        return $this->requestForm->where('request_no', $requestNo)->first();
     }
 
     public function create(array $data) {
