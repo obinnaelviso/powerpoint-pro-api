@@ -24,8 +24,8 @@ class PackageRepository {
     }
 
     public function search($duration, $slides) {
-        return $this->package->where('max_duration', '>=', $duration)
-            ->where('max_slides', '>=', $slides)->first();
+        return $this->package->where('max_duration', '>=', (int)$duration)
+            ->where('max_slides', '>=', (int)$slides)->first();
     }
 
     public function update($id, array $data) {

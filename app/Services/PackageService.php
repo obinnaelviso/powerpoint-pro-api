@@ -17,7 +17,7 @@ class PackageService {
         return PackageResource::collection($this->packageRepo->getAll());
     }
 
-    public function search(int $duration, int $slides) {
+    public function search($duration, $slides) {
         return new PackageResource($this->packageRepo->search($duration, $slides));
     }
 
