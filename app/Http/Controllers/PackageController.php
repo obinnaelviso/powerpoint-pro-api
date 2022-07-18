@@ -33,12 +33,7 @@ class PackageController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string|max:255',
-            'min_duration' => 'required|numeric',
-            'max_duration' => 'required|numeric',
-            'min_slides' => 'required|numeric',
-            'max_slides' => 'required|numeric',
-            'amount' => 'required|numeric',
+            'amount' => 'required|string|max:255',
         ]);
 
         return apiSuccess($this->packageService->create($request->all()), 'Package created successfully!');
@@ -75,12 +70,7 @@ class PackageController extends Controller
     {
         $request->validate([
             'title' => 'nullable|string|max:255',
-            'description' => 'nullable|string|max:255',
-            'min_duration' => 'nullable|numeric',
-            'max_duration' => 'nullable|numeric',
-            'min_slides' => 'nullable|numeric',
-            'max_slides' => 'nullable|numeric',
-            'amount' => 'nullable|numeric',
+            'amount' => 'nullable|string|max:255',
         ]);
 
         return apiSuccess($this->packageService->update($id, $request->all()), 'Package updated successfully!');
