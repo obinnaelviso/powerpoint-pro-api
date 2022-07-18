@@ -17,11 +17,6 @@ class PackageResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'description' => $this->description,
-            'min_duration' => $this->min_duration,
-            'max_duration' => $this->max_duration,
-            'min_slides' => $this->min_slides,
-            'max_slides' => $this->max_slides,
             'amount' => $this->amount,
             'amount_string' => $this->amount_string,
             'status' => new StatusResource($this->status),

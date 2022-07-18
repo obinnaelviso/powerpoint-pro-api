@@ -34,12 +34,10 @@ class RequestFormService {
     }
 
     public function create(array $data) {
-        $package = $this->packageService->search($data['duration'], $data['slides']);
+        // $package = $this->packageService->search($data['duration'], $data['slides']);
         return new RequestFormResource($this->requestFormRepo->create($data + [
             'status_id' => status_pending_id(),
-            'user_id' => auth()->user()->id,
-            'request_no' => $this->getRequestNo(),
-            'amount' => $package->amount,
+            'user_id' => auth()->user()->id
         ]));
     }
 
@@ -85,13 +83,5 @@ class RequestFormService {
 
     public function pending($id) {
         return $this->update($id, ['status_id' => status_pending_id()]);
-    }
-
-    public function getRequestNo() {
-        $requestNo = generateRequestNo();
-        if ($this->requestFormRepo->getByRequestNo($requestNo)) {
-            return $this->getRequestNo();
-        }
-        return $requestNo;
     }
 }

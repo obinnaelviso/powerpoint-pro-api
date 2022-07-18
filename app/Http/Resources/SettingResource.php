@@ -12,7 +12,7 @@ class SettingResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-    public function toArray($request)
+    public function toArray($request)P
     {
         return [
             'key' => $this->key,

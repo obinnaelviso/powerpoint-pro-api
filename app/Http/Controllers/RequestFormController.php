@@ -47,7 +47,8 @@ class RequestFormController extends Controller
             'phone' => 'required',
             'email' => 'required|string|email|max:255',
             'location' => 'nullable|string|max:255',
-            'need' => 'nullable|string|max:255'
+            'need' => 'nullable|string|max:255',
+            'amount' => 'required',
         ]);
 
         $requestForm = $this->requestFormService->create($request->all());

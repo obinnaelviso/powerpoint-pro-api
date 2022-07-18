@@ -2,12 +2,12 @@
 
 namespace App\Repositories;
 
-use App\Models\Package;
+use App\Models\PackageRev;
 
 class PackageRepository {
     protected $package;
 
-    public function __construct(Package $package) {
+    public function __construct(PackageRev $package) {
         $this->package = $package;
     }
 

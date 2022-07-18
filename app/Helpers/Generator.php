@@ -1,5 +1,8 @@
 <?php
 
-function generateRequestNo() {
-    return 'PP'.mt_rand(100000000000, 999999999999);
+function generateRequestNo($id) {
+    $year = date('Y');
+    $month = date('m');
+    $padId = str_pad($id, 6, '0', STR_PAD_LEFT);
+    return "PP$year-$month-$padId";
 }

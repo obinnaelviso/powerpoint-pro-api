@@ -62,7 +62,11 @@ class RequestFormRepository {
     }
 
     public function create(array $data) {
-        return $this->requestForm->create($data);
+        $requestForm = $this->requestForm->create($data);
+        $requestForm->update([
+            'request_no' => generateRequestNo($requestForm->id),
+        ]);
+        return $requestForm;
     }
 
     public function update($id, array $data) {
