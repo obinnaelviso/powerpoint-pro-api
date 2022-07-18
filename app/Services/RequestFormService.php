@@ -42,15 +42,11 @@ class RequestFormService {
     }
 
     public function update($id, array $data) {
-        $requestForm = $this->requestFormRepo->getById($id);
+        // $duration = array_key_exists('duration', $data) ? $data['duration'] : $requestForm->duration;
+        // $slides = array_key_exists('slides', $data) ? $data['slides'] : $requestForm->slides;
 
-        $duration = array_key_exists('duration', $data) ? $data['duration'] : $requestForm->duration;
-        $slides = array_key_exists('slides', $data) ? $data['slides'] : $requestForm->slides;
-
-        $package = $this->packageService->search($duration, $slides);
-        $this->requestFormRepo->update($id, $data + [
-            'amount' => $package->amount,
-        ]);
+        // $package = $this->packageService->search($duration, $slides);
+        $this->requestFormRepo->update($id, $data);
         return new RequestFormResource($this->requestFormRepo->getById($id));
     }
 
