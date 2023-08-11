@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -33,22 +34,26 @@ class RequestAccountDeletionController extends Controller
             'agree' => 'required'
         ]);
 
-        Mail::to($request->email)->send(
-            new \App\Mail\AutoResponse(
-                $request->name,
-                "We have received your request for account deletion in " . config('app.name') .
-                " and it is been processed.<br>We will get back to you once the process is completed."
-            )
-        );
+        try {
 
-        Mail::to(config('mail.from.address'))->send(
-            new \App\Mail\AccountDeletionRequest(
-                $request->name,
-                $request->email,
-                $request->reason,
-                $request->phone
-            )
-        );
+            Mail::to($request->email)->send(
+                new \App\Mail\AutoResponse(
+                    $request->name,
+                    "We have received your request for account deletion in " . config('app.name') .
+                    " and it is been processed.<br>We will get back to you once the process is completed."
+                )
+            );
+
+            Mail::to(config('mail.from.address'))->send(
+                new \App\Mail\AccountDeletionRequest(
+                    $request->name,
+                    $request->email,
+                    $request->reason,
+                    $request->phone
+                )
+            );
+        } catch(Exception $e) {}
+
 
         return redirect()->route('request-account-deletion.index')->with('success', 'Your request has been submitted. We will contact you shortly.');
     }
