@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +11,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/privacy-policy', function () {
     return view('privacy-policy');
 });
+
+Route::resource('request-account-deletion', 'App\Http\Controllers\RequestAccountDeletionController')->only([
+    'index',
+    'store'
+]);
