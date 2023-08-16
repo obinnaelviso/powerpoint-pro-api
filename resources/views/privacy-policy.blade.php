@@ -19,7 +19,7 @@
                 <h2>
                     Privacy Policy
                 </h2>
-                <p>Powerpoint Pro built the Powerpoint Pro app as a Free app. This SERVICE is provided by Powerpoint Pro
+                <p>{{ config('app.name') }} built the {{ config('app.name') }} app as a Free app. This SERVICE is provided by {{ config('app.name') }}
                     at
                     no cost and is intended for use as is.</p>
                 <p>This page is used to inform visitors regarding my policies with the collection, use, and disclosure
@@ -32,7 +32,7 @@
                     will not use or share your information with anyone except as described in this Privacy Policy.
                     The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which
                     are
-                    accessible at Powerpoint Pro unless otherwise defined in this Privacy Policy.
+                    accessible at {{ config('app.name') }} unless otherwise defined in this Privacy Policy.
                     Information Collection and Use</p>
                 <p>For a better experience, while using our Service, I may require you to provide us with certain
                     personally identifiable information. The information that I request will be retained on your device
@@ -128,7 +128,7 @@
                 <p>This policy is effective as of 2022-07-20</p>
                 <p><strong>Contact Us</strong> <br>
                     If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at
-                    support@powerpoint-pro.com.</p>
+                    {{ config('mail.from.address') }}.</p>
 
             </div>
         </div>

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -52,7 +51,7 @@ class RequestAccountDeletionController extends Controller
                     $request->phone
                 )
             );
-        } catch(Exception $e) {}
+        } catch(\Exception $e) {}
 
 
         return redirect()->route('request-account-deletion.index')->with('success', 'Your request has been submitted. We will contact you shortly.');
