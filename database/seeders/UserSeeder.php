@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             $john = User::create([
                 'first_name' => 'John',
                 'last_name' => 'Doe',
-                'email' => 'johndoe@powerpoint-pro.com',
+                'email' => 'johndoe@projectpptpro.com',
                 'email_verified_at' => now(),
                 'password' => bcrypt('1234567890'),
                 'status_id' => status_active_id(),
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
             $jane = User::create([
                 'first_name' => 'Jane',
                 'last_name' => 'Doe',
-                'email' => 'janedoe@powerpoint-pro.com',
+                'email' => 'janedoe@projectpptpro.com',
                 'password' => bcrypt('1234567890'),
                 'status_id' => status_active_id(),
             ]);

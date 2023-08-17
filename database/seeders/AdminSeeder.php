@@ -23,7 +23,7 @@ class AdminSeeder extends Seeder
             $user = User::create([
                 'first_name' => 'Admin',
                 'last_name' => 'Admin',
-                'email' => 'support@powerpoint-pro.com',
+                'email' => 'support@projectpptpro.com',
                 'email_verified_at' => now(),
                 'password' => bcrypt('1234567890'),
                 'status_id' => status_active_id(),
