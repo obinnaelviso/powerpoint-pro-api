@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Services\OTPService;
+use App\Services\OtpService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -16,7 +16,7 @@ class SendEmailOtp
      */
     protected $otpService;
 
-    public function __construct(OTPService $otpService)
+    public function __construct(OtpService $otpService)
     {
         $this->otpService = $otpService;
     }
